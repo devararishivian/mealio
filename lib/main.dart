@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'food_page.dart';
 
-void main() => runApp(MakananKhasIndoApp());
+void main() => runApp(MealioApp());
 
-String mainTitle = 'Makanan Khas Indonesia';
+String mainTitle = 'Mealio';
 
-class MakananKhasIndoApp extends StatelessWidget {
+class MealioApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

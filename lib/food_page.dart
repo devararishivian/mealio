@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'food_detail_page.dart';
 import 'food_list.dart';
 
-String mainTitle = 'Makanan Khas Indonesia';
+String mainTitle = 'Mealio';
 
 class FoodPage extends StatelessWidget {
   const FoodPage({
