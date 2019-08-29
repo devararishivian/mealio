@@ -20,8 +20,12 @@ class FoodPage extends StatelessWidget {
           title: Text(mainTitle),
           bottom: TabBar(
             tabs: <Widget>[
-              Tab(icon: Icon(Icons.directions_car)),
-              Tab(icon: Icon(Icons.directions_transit)),
+              Tab(
+                text: breakfast,
+              ),
+              Tab(
+                text: dessert,
+              ),
             ],
           ),
         ),
