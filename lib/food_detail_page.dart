@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'food_list.dart';
 
 class FoodDetailPage extends StatelessWidget {
-  FoodDetailPage({this.index});
+  FoodDetailPage({@required this.index, @required this.foodCategory});
 
   final int index;
+  final String foodCategory;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(FoodList().getFoodName(index)),
+          title: Text(
+              FoodList(foodCategory: this.foodCategory).getFoodName(index)),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context, false),
@@ -32,8 +34,9 @@ class FoodDetailPage extends StatelessWidget {
                     margin: EdgeInsets.only(bottom: 25.0),
                     child: CircleAvatar(
                       radius: 75.0,
-                      backgroundImage: AssetImage(
-                          'images/' + FoodList().getFoodPicture(index)),
+                      backgroundImage: NetworkImage(
+                          FoodList(foodCategory: this.foodCategory)
+                              .getFoodPicture(index)),
                     ),
                   ),
                   Container(
@@ -43,7 +46,9 @@ class FoodDetailPage extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(FoodList().getFoodDetail(index)),
+                      child: Text('TES'),
+                      // child: Text(FoodList(foodCategory: this.foodCategory)
+                      // .getFoodDetail(index)),
                     ),
                   ),
                 ],

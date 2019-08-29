@@ -3,6 +3,8 @@ import 'food_detail_page.dart';
 import 'food_list.dart';
 
 String mainTitle = 'Mealio';
+const String breakfast = 'Breakfast';
+const String dessert = 'Dessert';
 
 class FoodPage extends StatelessWidget {
   const FoodPage({
@@ -43,7 +45,7 @@ class FoodGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GridView.builder(
-        itemCount: FoodList().countFoodList(),
+        itemCount: FoodList(foodCategory: breakfast).countFoodList(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
@@ -53,9 +55,9 @@ class FoodGridView extends StatelessWidget {
               child: Card(
                 margin: EdgeInsets.all(20.0),
                 child: Hero(
-                  tag: FoodList().getFoodName(index),
-                  child: Image.asset(
-                    'images/' + FoodList().getFoodPicture(index),
+                  tag: FoodList(foodCategory: breakfast).getFoodName(index),
+                  child: Image.network(
+                    FoodList(foodCategory: breakfast).getFoodPicture(index),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -65,7 +67,7 @@ class FoodGridView extends StatelessWidget {
                 child: GridTileBar(
                   backgroundColor: Colors.black45,
                   title: Text(
-                    FoodList().getFoodName(index),
+                    FoodList(foodCategory: breakfast).getFoodName(index),
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   trailing: Icon(Icons.open_in_new),
@@ -76,7 +78,8 @@ class FoodGridView extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => FoodDetailPage(index: index),
+                  builder: (context) =>
+                      FoodDetailPage(index: index, foodCategory: breakfast),
                 ),
               );
             },
