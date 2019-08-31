@@ -31,8 +31,8 @@ class FoodPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            new FoodGridView(),
-            Text('TES'),
+            new FoodGridView(foodCategory: breakfast),
+            new FoodGridView(foodCategory: dessert),
           ],
         ),
       ),
@@ -43,7 +43,10 @@ class FoodPage extends StatelessWidget {
 class FoodGridView extends StatelessWidget {
   const FoodGridView({
     Key key,
+    @required this.foodCategory,
   }) : super(key: key);
+
+  final String foodCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +55,8 @@ class FoodGridView extends StatelessWidget {
         itemCount: FoodList(foodCategory: breakfast).countFoodList(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          // childAspectRatio: MediaQuery.of(context).size.width /
-          //     (MediaQuery.of(context).size.height / 1.5),
+          childAspectRatio: MediaQuery.of(context).size.width /
+              (MediaQuery.of(context).size.height / 1.5),
         ),
         itemBuilder: (BuildContext context, int index) {
           return Card(
@@ -74,7 +77,8 @@ class FoodGridView extends StatelessWidget {
                         topRight: Radius.circular(20),
                       ),
                       child: Image.network(
-                        FoodList(foodCategory: breakfast).getFoodPicture(index),
+                        FoodList(foodCategory: this.foodCategory)
+                            .getFoodPicture(index),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -86,7 +90,8 @@ class FoodGridView extends StatelessWidget {
                     margin: EdgeInsets.all(10),
                     child: Center(
                       child: Text(
-                        FoodList(foodCategory: breakfast).getFoodName(index),
+                        FoodList(foodCategory: this.foodCategory)
+                            .getFoodName(index),
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
                       ),
