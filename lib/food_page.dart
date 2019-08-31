@@ -60,48 +60,9 @@ class FoodGridView extends StatelessWidget {
         ),
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
-            child: Card(
-              margin: EdgeInsets.all(15.0),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    flex: 2,
-                    child: Hero(
-                      tag: FoodList(foodCategory: this.foodCategory)
-                          .getFoodId(index),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                        ),
-                        child: Image.network(
-                          FoodList(foodCategory: this.foodCategory)
-                              .getFoodPicture(index),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      child: Center(
-                        child: Text(
-                          FoodList(foodCategory: this.foodCategory)
-                              .getFoodName(index),
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            child: new FoodCard(
+              foodCategory: foodCategory,
+              index: index,
             ),
             onTap: () {
               Navigator.push(
@@ -118,6 +79,62 @@ class FoodGridView extends StatelessWidget {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class FoodCard extends StatelessWidget {
+  const FoodCard({
+    Key key,
+    @required this.foodCategory,
+    @required this.index,
+  }) : super(key: key);
+
+  final String foodCategory;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(15.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Hero(
+              tag: FoodList(foodCategory: this.foodCategory).getFoodId(index),
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                child: Image.network(
+                  FoodList(foodCategory: this.foodCategory)
+                      .getFoodPicture(index),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Center(
+                child: Text(
+                  FoodList(foodCategory: this.foodCategory).getFoodName(index),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
