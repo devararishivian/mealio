@@ -58,6 +58,9 @@ class FoodGridView extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Card(
             margin: EdgeInsets.all(15.0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
@@ -65,9 +68,15 @@ class FoodGridView extends StatelessWidget {
                   flex: 2,
                   child: Hero(
                     tag: 'Gambar',
-                    child: Image.network(
-                      FoodList(foodCategory: breakfast).getFoodPicture(index),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                      child: Image.network(
+                        FoodList(foodCategory: breakfast).getFoodPicture(index),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
