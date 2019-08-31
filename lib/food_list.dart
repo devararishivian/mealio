@@ -165,6 +165,14 @@ class FoodList {
     },
   ];
 
+  String getFoodId(int index) {
+    if (foodCategory == 'Breakfast') {
+      return _breakfastList[index]['id'];
+    } else {
+      return _dessertList[index]['id'];
+    }
+  }
+
   String getFoodName(int index) {
     if (foodCategory == 'Breakfast') {
       return _breakfastList[index]['name'];

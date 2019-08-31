@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'food_list.dart';
 
 class FoodDetailPage extends StatelessWidget {
-  FoodDetailPage({@required this.index, @required this.foodCategory});
+  FoodDetailPage(
+      {@required this.index,
+      @required this.foodCategory,
+      @required this.foodId});
 
   final int index;
   final String foodCategory;
+  final String foodId;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,19 @@ class FoodDetailPage extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(bottom: 25.0),
-                    child: CircleAvatar(
-                      radius: 75.0,
-                      backgroundImage: NetworkImage(
+                    child: Hero(
+                      tag: this.foodId,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Image.network(
                           FoodList(foodCategory: this.foodCategory)
-                              .getFoodPicture(index)),
+                              .getFoodPicture(index),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
                   ),
                   Container(

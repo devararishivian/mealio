@@ -59,58 +59,64 @@ class FoodGridView extends StatelessWidget {
               (MediaQuery.of(context).size.height / 1.5),
         ),
         itemBuilder: (BuildContext context, int index) {
-          return Card(
-            margin: EdgeInsets.all(15.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: Hero(
-                    tag: 'Gambar',
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      child: Image.network(
-                        FoodList(foodCategory: this.foodCategory)
-                            .getFoodPicture(index),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    margin: EdgeInsets.all(10),
-                    child: Center(
-                      child: Text(
-                        FoodList(foodCategory: this.foodCategory)
-                            .getFoodName(index),
-                        textAlign: TextAlign.center,
-                        overflow: TextOverflow.ellipsis,
+          return GestureDetector(
+            child: Card(
+              margin: EdgeInsets.all(15.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Hero(
+                      tag: FoodList(foodCategory: this.foodCategory)
+                          .getFoodId(index),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Image.network(
+                          FoodList(foodCategory: this.foodCategory)
+                              .getFoodPicture(index),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      child: Center(
+                        child: Text(
+                          FoodList(foodCategory: this.foodCategory)
+                              .getFoodName(index),
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FoodDetailPage(
+                    index: index,
+                    foodCategory: this.foodCategory,
+                    foodId: FoodList(foodCategory: this.foodCategory)
+                        .getFoodId(index),
+                  ),
+                ),
+              );
+            },
           );
-          //   onTap: () {
-          //     Navigator.push(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) =>
-          //             FoodDetailPage(index: index, foodCategory: breakfast),
-          //       ),
-          //     );
-          //   },
-          // );
         },
       ),
     );
