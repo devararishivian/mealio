@@ -32,7 +32,7 @@ class FoodPage extends StatelessWidget {
         body: TabBarView(
           children: <Widget>[
             new FoodGridView(),
-            Text('OK'),
+            Text('TES'),
           ],
         ),
       ),
@@ -52,42 +52,51 @@ class FoodGridView extends StatelessWidget {
         itemCount: FoodList(foodCategory: breakfast).countFoodList(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
+          // childAspectRatio: MediaQuery.of(context).size.width /
+          //     (MediaQuery.of(context).size.height / 1.5),
         ),
         itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            child: GridTile(
-              child: Card(
-                margin: EdgeInsets.all(20.0),
-                child: Hero(
-                  tag: FoodList(foodCategory: breakfast).getFoodName(index),
-                  child: Image.network(
-                    FoodList(foodCategory: breakfast).getFoodPicture(index),
-                    fit: BoxFit.cover,
+          return Card(
+            margin: EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Hero(
+                    tag: 'Gambar',
+                    child: Image.network(
+                      FoodList(foodCategory: breakfast).getFoodPicture(index),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              footer: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: GridTileBar(
-                  backgroundColor: Colors.black45,
-                  title: Text(
-                    FoodList(foodCategory: breakfast).getFoodName(index),
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    margin: EdgeInsets.all(10),
+                    child: Center(
+                      child: Text(
+                        FoodList(foodCategory: breakfast).getFoodName(index),
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                   ),
-                  trailing: Icon(Icons.open_in_new),
                 ),
-              ),
+              ],
             ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      FoodDetailPage(index: index, foodCategory: breakfast),
-                ),
-              );
-            },
           );
+          //   onTap: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) =>
+          //             FoodDetailPage(index: index, foodCategory: breakfast),
+          //       ),
+          //     );
+          //   },
+          // );
         },
       ),
     );
