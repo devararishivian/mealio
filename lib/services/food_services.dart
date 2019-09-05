@@ -4,9 +4,8 @@ import 'dart:convert';
 import 'package:mealio/models/food_model.dart';
 
 class FoodService {
-  String url;
-
   Future<Food> getFoodByCategory() async {
+    String url;
     url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert";
     final response = await http.get(url);
 
@@ -20,7 +19,7 @@ class FoodService {
   }
 
   Future<FoodDetail> getFoodById() async {
-    url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52893";
+    String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52893";
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

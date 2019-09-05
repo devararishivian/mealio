@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mealio/services/food_services.dart';
 import 'food_detail_page.dart';
 import 'food_list.dart';
+import 'models/food_model.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 String mainTitle = 'Mealio';
 const String breakfast = 'Breakfast';
@@ -99,6 +104,28 @@ class FoodCard extends StatefulWidget {
 }
 
 class _FoodCardState extends State<FoodCard> {
+  List<FoodDetail> foodDetailList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
+
+  loadData() async {
+    String dataURL =
+        "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52767";
+    http.Response response = await http.get(dataURL);
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      foodDetailList = (responseJson['meals'] as List)
+          .map((p) => FoodDetail.fromJson(p))
+          .toList();
+    } else {
+      throw Exception('Failed to load photos');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -112,7 +139,8 @@ class _FoodCardState extends State<FoodCard> {
           Expanded(
             flex: 2,
             child: Hero(
-              tag: FoodList(foodCategory: this.widget.foodCategory).getFoodId(widget.index),
+              tag: FoodList(foodCategory: this.widget.foodCategory)
+                  .getFoodId(widget.index),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
@@ -132,7 +160,8 @@ class _FoodCardState extends State<FoodCard> {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  FoodList(foodCategory: this.widget.foodCategory).getFoodName(widget.index),
+                  // FoodList(foodCategory: this.widget.foodCategory).getFoodName(widget.index),
+                  foodDetailList[0].foodName,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                 ),
