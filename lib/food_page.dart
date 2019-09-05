@@ -43,7 +43,7 @@ class FoodPage extends StatelessWidget {
   }
 }
 
-class FoodGridView extends StatelessWidget {
+class FoodGridView extends StatefulWidget {
   const FoodGridView({
     Key key,
     @required this.foodCategory,
@@ -52,56 +52,10 @@ class FoodGridView extends StatelessWidget {
   final String foodCategory;
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: GridView.builder(
-        itemCount: FoodList(foodCategory: seafood).countFoodList(),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: MediaQuery.of(context).size.width /
-              (MediaQuery.of(context).size.height / 1.5),
-        ),
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            child: new FoodCard(
-              foodCategory: foodCategory,
-              index: index,
-            ),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => FoodDetailPage(
-                    index: index,
-                    foodCategory: this.foodCategory,
-                    foodId: FoodList(foodCategory: this.foodCategory)
-                        .getFoodId(index),
-                  ),
-                ),
-              );
-            },
-          );
-        },
-      ),
-    );
-  }
+  _FoodGridViewState createState() => _FoodGridViewState();
 }
 
-class FoodCard extends StatefulWidget {
-  FoodCard({
-    Key key,
-    @required this.foodCategory,
-    @required this.index,
-  }) : super(key: key);
-
-  final String foodCategory;
-  final int index;
-
-  @override
-  _FoodCardState createState() => _FoodCardState();
-}
-
-class _FoodCardState extends State<FoodCard> {
+class _FoodGridViewState extends State<FoodGridView> {
   List<Food> foodList;
   List<FoodDetail> foodDetailList;
 
@@ -114,44 +68,70 @@ class _FoodCardState extends State<FoodCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(15.0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: Hero(
-              tag: foodList[widget.index].foodId,
-              child: ClipRRect(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-                child: Image.network(
-                  foodList[widget.index].foodPicture,
-                  fit: BoxFit.cover,
-                ),
+    return SafeArea(
+      child: GridView.builder(
+        itemCount: foodList.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: MediaQuery.of(context).size.width /
+              (MediaQuery.of(context).size.height / 1.5),
+        ),
+        itemBuilder: (BuildContext context, int index) {
+          return GestureDetector(
+            child: Card(
+              margin: EdgeInsets.all(15.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Expanded(
+                    flex: 2,
+                    child: Hero(
+                      tag: foodList[index].foodId,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: Image.network(
+                          foodList[index].foodPicture,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.all(10),
+                      child: Center(
+                        child: Text(
+                          foodList[index].foodName,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              margin: EdgeInsets.all(10),
-              child: Center(
-                child: Text(
-                  foodList[widget.index].foodName,
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => FoodDetailPage(
+                    index: index,
+                    foodCategory: this.widget.foodCategory,
+                    foodId: foodList[index].foodId,
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ],
+              );
+            },
+          );
+        },
       ),
     );
   }
