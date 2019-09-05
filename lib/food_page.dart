@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mealio/services/food_services.dart';
 import 'food_detail_page.dart';
 import 'food_list.dart';
 import 'models/food_model.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
 
 String mainTitle = 'Mealio';
-const String breakfast = 'Breakfast';
+const String seafood = 'Seafood';
 const String dessert = 'Dessert';
 
 class FoodPage extends StatelessWidget {
@@ -26,7 +24,7 @@ class FoodPage extends StatelessWidget {
           bottom: TabBar(
             tabs: <Widget>[
               Tab(
-                text: breakfast,
+                text: seafood,
               ),
               Tab(
                 text: dessert,
@@ -36,7 +34,7 @@ class FoodPage extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            new FoodGridView(foodCategory: breakfast),
+            new FoodGridView(foodCategory: seafood),
             new FoodGridView(foodCategory: dessert),
           ],
         ),
@@ -57,7 +55,7 @@ class FoodGridView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: GridView.builder(
-        itemCount: FoodList(foodCategory: breakfast).countFoodList(),
+        itemCount: FoodList(foodCategory: seafood).countFoodList(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: MediaQuery.of(context).size.width /
@@ -104,26 +102,14 @@ class FoodCard extends StatefulWidget {
 }
 
 class _FoodCardState extends State<FoodCard> {
-  List<FoodDetail> foodDetailList = [];
+  List<Food> foodList;
+  List<FoodDetail> foodDetailList;
 
   @override
   void initState() {
     super.initState();
-    loadData();
-  }
-
-  loadData() async {
-    String dataURL =
-        "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52767";
-    http.Response response = await http.get(dataURL);
-    var responseJson = json.decode(response.body);
-    if (response.statusCode == 200) {
-      foodDetailList = (responseJson['meals'] as List)
-          .map((p) => FoodDetail.fromJson(p))
-          .toList();
-    } else {
-      throw Exception('Failed to load photos');
-    }
+    getFoodById();
+    getFoodByCategory(widget.foodCategory);
   }
 
   @override
@@ -139,16 +125,14 @@ class _FoodCardState extends State<FoodCard> {
           Expanded(
             flex: 2,
             child: Hero(
-              tag: FoodList(foodCategory: this.widget.foodCategory)
-                  .getFoodId(widget.index),
+              tag: foodList[widget.index].foodId,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
                 child: Image.network(
-                  FoodList(foodCategory: this.widget.foodCategory)
-                      .getFoodPicture(widget.index),
+                  foodList[widget.index].foodPicture,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -160,8 +144,7 @@ class _FoodCardState extends State<FoodCard> {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  // FoodList(foodCategory: this.widget.foodCategory).getFoodName(widget.index),
-                  foodDetailList[0].foodName,
+                  foodList[widget.index].foodName,
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -171,5 +154,36 @@ class _FoodCardState extends State<FoodCard> {
         ],
       ),
     );
+  }
+
+  getFoodById() async {
+    String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52855";
+    http.Response response = await http.get(url);
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      setState(() {
+        foodDetailList = (responseJson['meals'] as List)
+            .map((p) => FoodDetail.fromJson(p))
+            .toList();
+      });
+    } else {
+      throw Exception('Failed to load photos');
+    }
+  }
+
+  getFoodByCategory(String foodCategory) async {
+    String url =
+        "https://www.themealdb.com/api/json/v1/1/filter.php?c=$foodCategory";
+    http.Response response = await http.get(url);
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      setState(() {
+        foodList = (responseJson['meals'] as List)
+            .map((p) => Food.fromJson(p))
+            .toList();
+      });
+    } else {
+      throw Exception('Failed to load photos');
+    }
   }
 }
