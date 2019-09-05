@@ -84,8 +84,8 @@ class FoodGridView extends StatelessWidget {
   }
 }
 
-class FoodCard extends StatelessWidget {
-  const FoodCard({
+class FoodCard extends StatefulWidget {
+  FoodCard({
     Key key,
     @required this.foodCategory,
     @required this.index,
@@ -94,6 +94,11 @@ class FoodCard extends StatelessWidget {
   final String foodCategory;
   final int index;
 
+  @override
+  _FoodCardState createState() => _FoodCardState();
+}
+
+class _FoodCardState extends State<FoodCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -107,15 +112,15 @@ class FoodCard extends StatelessWidget {
           Expanded(
             flex: 2,
             child: Hero(
-              tag: FoodList(foodCategory: this.foodCategory).getFoodId(index),
+              tag: FoodList(foodCategory: this.widget.foodCategory).getFoodId(widget.index),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
                 child: Image.network(
-                  FoodList(foodCategory: this.foodCategory)
-                      .getFoodPicture(index),
+                  FoodList(foodCategory: this.widget.foodCategory)
+                      .getFoodPicture(widget.index),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -127,7 +132,7 @@ class FoodCard extends StatelessWidget {
               margin: EdgeInsets.all(10),
               child: Center(
                 child: Text(
-                  FoodList(foodCategory: this.foodCategory).getFoodName(index),
+                  FoodList(foodCategory: this.widget.foodCategory).getFoodName(widget.index),
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                 ),
