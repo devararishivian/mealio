@@ -56,7 +56,6 @@ class FoodGridView extends StatefulWidget {
 
 class _FoodGridViewState extends State<FoodGridView> {
   List<Food> foodList;
-  List<FoodDetail> foodDetailList;
 
   @override
   void initState() {
@@ -131,11 +130,8 @@ class _FoodGridViewState extends State<FoodGridView> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => FoodDetailPage(
-                      index: index,
-                      foodCategory: this.widget.foodCategory,
-                      foodId: foodList[index].foodId,
-                    ),
+                    builder: (context) =>
+                        FoodDetailPage(foodId: foodList[index].foodId),
                   ),
                 );
               },
