@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'food_detail_page.dart';
-import 'food_list.dart';
 import 'models/food_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -62,7 +61,6 @@ class _FoodGridViewState extends State<FoodGridView> {
   @override
   void initState() {
     super.initState();
-    getFoodById();
     getFoodByCategory(widget.foodCategory);
   }
 
@@ -145,21 +143,6 @@ class _FoodGridViewState extends State<FoodGridView> {
           },
         ),
       );
-    }
-  }
-
-  getFoodById() async {
-    String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52855";
-    http.Response response = await http.get(url);
-    var responseJson = json.decode(response.body);
-    if (response.statusCode == 200) {
-      setState(() {
-        foodDetailList = (responseJson['meals'] as List)
-            .map((p) => FoodDetail.fromJson(p))
-            .toList();
-      });
-    } else {
-      throw Exception('Failed to load photos');
     }
   }
 

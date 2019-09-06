@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'food_list.dart';
 
-class FoodDetailPage extends StatelessWidget {
+class FoodDetailPage extends StatefulWidget {
   FoodDetailPage(
       {@required this.index,
       @required this.foodCategory,
@@ -12,11 +12,16 @@ class FoodDetailPage extends StatelessWidget {
   final String foodId;
 
   @override
+  _FoodDetailPageState createState() => _FoodDetailPageState();
+}
+
+class _FoodDetailPageState extends State<FoodDetailPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-              FoodList(foodCategory: this.foodCategory).getFoodName(index)),
+          title: Text(FoodList(foodCategory: this.widget.foodCategory)
+              .getFoodName(widget.index)),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context, false),
@@ -38,12 +43,12 @@ class FoodDetailPage extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.only(bottom: 25.0),
                       child: Hero(
-                        tag: this.foodId,
+                        tag: this.widget.foodId,
                         child: CircleAvatar(
                             radius: 75.0,
                             backgroundImage: NetworkImage(
-                                FoodList(foodCategory: this.foodCategory)
-                                    .getFoodPicture(index))),
+                                FoodList(foodCategory: this.widget.foodCategory)
+                                    .getFoodPicture(widget.index))),
                       ),
                     ),
                     Container(
@@ -54,8 +59,9 @@ class FoodDetailPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         // child: Text('TES'),
-                        child: Text(FoodList(foodCategory: this.foodCategory)
-                            .getFoodDetail(index)),
+                        child: Text(
+                            FoodList(foodCategory: this.widget.foodCategory)
+                                .getFoodDetail(widget.index)),
                       ),
                     ),
                   ],
