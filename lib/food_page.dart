@@ -132,6 +132,7 @@ class _FoodGridViewState extends State<FoodGridView> {
                   MaterialPageRoute(
                     builder: (context) =>
                         FoodDetailPage(foodId: foodList[index].foodId),
+                    // FoodDetailPage(),
                   ),
                 );
               },
