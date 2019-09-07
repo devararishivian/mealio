@@ -5,11 +5,10 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class FoodDetailPage extends StatefulWidget {
-  FoodDetailPage({
-    @required this.foodId,
-  });
+  FoodDetailPage({@required this.foodId, this.foodPicture});
 
   final String foodId;
+  final String foodPicture;
 
   @override
   _FoodDetailPageState createState() => _FoodDetailPageState();
@@ -75,11 +74,19 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         margin: EdgeInsets.only(bottom: 25.0),
                         child: Hero(
                           tag: foodDetail[0].foodId,
-                          child: CircleAvatar(
-                              radius: 75.0,
-                              backgroundImage: NetworkImage(
-                                foodDetail[0].foodPicture,
-                              )),
+                          child: FadeInImage.assetNetwork(
+                            placeholder: 'assets/images/et.png',
+                            image: widget.foodPicture,
+                          ),
+                          //  Image.network(
+                          //   foodDetail[0].foodPicture,
+                          //   scale: 3,
+                          // ),
+                          // CircleAvatar(
+                          //     radius: 75.0,
+                          //     backgroundImage: NetworkImage(
+                          //       foodDetail[0].foodPicture,
+                          //     )),
                         ),
                       ),
                       Container(
