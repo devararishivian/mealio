@@ -223,7 +223,50 @@ class FoodSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return Text(query);
+    if (query.length < 3) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Text(
+              "Search term must be longer than two letters.",
+            ),
+          )
+        ],
+      );
+    }
+
+    final result = foodList
+        .where(
+            (food) => food.foodName.toLowerCase().contains(query.toLowerCase()))
+        .toList();
+
+    if (result.length == 0) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Text(
+              "No Results Found.",
+            ),
+          )
+        ],
+      );
+    }
+
+    return ListView.builder(
+      itemCount: result.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          contentPadding: EdgeInsets.all(20),
+          leading: Image.network(result[index].foodPicture),
+          title: Text(result[index].foodName),
+          onTap: () {
+            print(result[index].foodName);
+          },
+        );
+      },
+    );
   }
 
   @override
