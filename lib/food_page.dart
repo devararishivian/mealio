@@ -228,15 +228,22 @@ class FoodSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final suggestions = query.isEmpty
+        ? foodList
+        : foodList
+            .where((food) =>
+                food.foodName.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+
     return ListView.builder(
-      itemCount: 7,
+      itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           contentPadding: EdgeInsets.all(20),
-          leading: Image.network(foodList[index].foodPicture),
-          title: Text(foodList[index].foodName),
+          leading: Image.network(suggestions[index].foodPicture),
+          title: Text(suggestions[index].foodName),
           onTap: () {
-            print(foodList[index].foodName);
+            print(suggestions[index].foodName);
           },
         );
       },
