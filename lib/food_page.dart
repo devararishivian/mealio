@@ -82,7 +82,10 @@ class _FoodGridViewState extends State<FoodGridView> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: FoodSearchDelegate(),
+                delegate: FoodSearchDelegate(
+                  foodCategory: widget.foodCategory,
+                  foodList: foodList,
+                ),
               );
             },
             child: Icon(Icons.search),
@@ -176,23 +179,60 @@ class _FoodGridViewState extends State<FoodGridView> {
 }
 
 class FoodSearchDelegate extends SearchDelegate {
+  FoodSearchDelegate({@required this.foodCategory, @required this.foodList});
+  final String foodCategory;
+  final List foodList;
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    assert(theme != null);
+    return theme;
+  }
+
   @override
   Widget buildLeading(BuildContext context) {
-    return Container();
+    return IconButton(
+      tooltip: 'Back',
+      icon: AnimatedIcon(
+        icon: AnimatedIcons.menu_arrow,
+        progress: transitionAnimation,
+      ),
+      onPressed: () {
+        close(context, null);
+      },
+    );
   }
 
   @override
   List<Widget> buildActions(BuildContext context) {
-    return List();
+    return <Widget>[
+      query.isNotEmpty
+          ? IconButton(
+              tooltip: 'Clear',
+              icon: Icon(Icons.clear),
+              onPressed: () {
+                query = '';
+                showSuggestions(context);
+              },
+            )
+          : Container(),
+    ];
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    return Container();
+    return ListView.builder(
+      itemCount: foodList.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Text(this.foodList[index].foodName);
+      },
+    );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container();
+    return Text(query);
   }
 }
