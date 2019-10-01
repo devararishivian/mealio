@@ -223,16 +223,23 @@ class FoodSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return ListView.builder(
-      itemCount: foodList.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Text(this.foodList[index].foodName);
-      },
-    );
+    return Text(query);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Text(query);
+    return ListView.builder(
+      itemCount: 7,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          contentPadding: EdgeInsets.all(20),
+          leading: Image.network(foodList[index].foodPicture),
+          title: Text(foodList[index].foodName),
+          onTap: () {
+            print(foodList[index].foodName);
+          },
+        );
+      },
+    );
   }
 }
