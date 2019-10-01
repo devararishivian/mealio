@@ -30,12 +30,6 @@ class FoodPage extends StatelessWidget {
               ),
             ],
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {},
-            ),
-          ],
         ),
         body: TabBarView(
           children: <Widget>[
@@ -83,70 +77,82 @@ class _FoodGridViewState extends State<FoodGridView> {
       );
     } else {
       return SafeArea(
-        child: GridView.builder(
-          itemCount: foodList.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: MediaQuery.of(context).size.width /
-                (MediaQuery.of(context).size.height / 1.5),
+        child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: FoodSearchDelegate(),
+              );
+            },
+            child: Icon(Icons.search),
+            tooltip: 'Search',
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-              child: Card(
-                margin: EdgeInsets.all(15.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 2,
-                      child: Hero(
-                        tag: foodList[index].foodId,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20),
-                          ),
-                          child: Image.network(
-                            foodList[index].foodPicture,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        margin: EdgeInsets.all(10),
-                        child: Center(
-                          child: Text(
-                            foodList[index].foodName,
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FoodDetailPage(
-                      foodId: foodList[index].foodId,
-                      foodName: foodList[index].foodName,
-                      foodPicture: foodList[index].foodPicture,
-                    ),
-                    // FoodDetailPage(),
+          body: GridView.builder(
+            itemCount: foodList.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: MediaQuery.of(context).size.width /
+                  (MediaQuery.of(context).size.height / 1.5),
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return GestureDetector(
+                child: Card(
+                  margin: EdgeInsets.all(15.0),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                );
-              },
-            );
-          },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Hero(
+                          tag: foodList[index].foodId,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            child: Image.network(
+                              foodList[index].foodPicture,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          child: Center(
+                            child: Text(
+                              foodList[index].foodName,
+                              textAlign: TextAlign.center,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FoodDetailPage(
+                        foodId: foodList[index].foodId,
+                        foodName: foodList[index].foodName,
+                        foodPicture: foodList[index].foodPicture,
+                      ),
+                      // FoodDetailPage(),
+                    ),
+                  );
+                },
+              );
+            },
+          ),
         ),
       );
     }
@@ -166,5 +172,27 @@ class _FoodGridViewState extends State<FoodGridView> {
     } else {
       throw Exception('Failed to load photos');
     }
+  }
+}
+
+class FoodSearchDelegate extends SearchDelegate {
+  @override
+  Widget buildLeading(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return List();
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    return Container();
   }
 }
