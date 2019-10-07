@@ -261,7 +261,7 @@ class FoodSearchDelegate extends SearchDelegate {
           leading: Image.network(results[index].foodPicture),
           title: Text(results[index].foodName),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => FoodDetailPage(
@@ -294,7 +294,7 @@ class FoodSearchDelegate extends SearchDelegate {
           leading: Image.network(suggestions[index].foodPicture),
           title: Text(suggestions[index].foodName),
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => FoodDetailPage(
