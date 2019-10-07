@@ -1,61 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:mealio/models/food_model.dart';
 import 'food_detail_page.dart';
-import 'models/food_model.dart';
+import 'food_search_delegate.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'food_search_delegate.dart';
 
-String mainTitle = 'Mealio';
-const String seafood = 'Seafood';
-const String dessert = 'Dessert';
-
-class FoodPage extends StatelessWidget {
-  const FoodPage({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(mainTitle),
-          bottom: TabBar(
-            tabs: <Widget>[
-              Tab(
-                text: seafood,
-              ),
-              Tab(
-                text: dessert,
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
-          children: <Widget>[
-            new FoodGridView(foodCategory: seafood),
-            new FoodGridView(foodCategory: dessert),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FoodGridView extends StatefulWidget {
-  const FoodGridView({
-    Key key,
+class DessertPage extends StatefulWidget {
+  DessertPage({
     @required this.foodCategory,
-  }) : super(key: key);
+  });
 
   final String foodCategory;
 
   @override
-  _FoodGridViewState createState() => _FoodGridViewState();
+  _DessertPageState createState() => _DessertPageState();
 }
 
-class _FoodGridViewState extends State<FoodGridView> {
+class _DessertPageState extends State<DessertPage> {
   List<Food> foodList;
 
   @override

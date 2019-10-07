@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'models/food_model.dart';
+import 'package:mealio/models/food_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
