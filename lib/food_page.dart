@@ -149,7 +149,6 @@ class _FoodGridViewState extends State<FoodGridView> {
                         foodName: foodList[index].foodName,
                         foodPicture: foodList[index].foodPicture,
                       ),
-                      // FoodDetailPage(),
                     ),
                   );
                 },
@@ -236,12 +235,12 @@ class FoodSearchDelegate extends SearchDelegate {
       );
     }
 
-    final result = foodList
+    final results = foodList
         .where(
             (food) => food.foodName.toLowerCase().contains(query.toLowerCase()))
         .toList();
 
-    if (result.length == 0) {
+    if (results.length == 0) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -255,14 +254,23 @@ class FoodSearchDelegate extends SearchDelegate {
     }
 
     return ListView.builder(
-      itemCount: result.length,
+      itemCount: results.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           contentPadding: EdgeInsets.all(20),
-          leading: Image.network(result[index].foodPicture),
-          title: Text(result[index].foodName),
+          leading: Image.network(results[index].foodPicture),
+          title: Text(results[index].foodName),
           onTap: () {
-            print(result[index].foodName);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodDetailPage(
+                  foodId: results[index].foodId,
+                  foodName: results[index].foodName,
+                  foodPicture: results[index].foodPicture,
+                ),
+              ),
+            );
           },
         );
       },
@@ -286,7 +294,16 @@ class FoodSearchDelegate extends SearchDelegate {
           leading: Image.network(suggestions[index].foodPicture),
           title: Text(suggestions[index].foodName),
           onTap: () {
-            print(suggestions[index].foodName);
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FoodDetailPage(
+                  foodId: suggestions[index].foodId,
+                  foodName: suggestions[index].foodName,
+                  foodPicture: suggestions[index].foodPicture,
+                ),
+              ),
+            );
           },
         );
       },
