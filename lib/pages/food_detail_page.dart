@@ -4,6 +4,7 @@ import 'package:mealio/models/food_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:mealio/helpers/db_helper.dart';
+import 'package:mealio/services/food_service.dart';
 
 class FoodDetailPage extends StatefulWidget {
   FoodDetailPage({
@@ -27,23 +28,16 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
   @override
   void initState() {
     super.initState();
-    getFoodById(widget.foodId);
+    _getFoodById();
     _isFavorite();
   }
 
-  getFoodById(String foodId) async {
-    String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$foodId";
-    http.Response response = await http.get(url);
-    var responseJson = json.decode(response.body);
-    if (response.statusCode == 200) {
-      setState(() {
-        foodDetail = (responseJson['meals'] as List)
-            .map((p) => FoodDetail.fromJson(p))
-            .toList();
-      });
-    } else {
-      throw Exception('Failed to load photos');
-    }
+  Future _getFoodById() async {
+    var foodService = FoodService();
+    var response = await foodService.getFoodById(widget.foodId);
+    setState(() {
+      foodDetail = response;
+    });
   }
 
   _isFavorite() async {

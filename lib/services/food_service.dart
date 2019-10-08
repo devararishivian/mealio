@@ -12,19 +12,19 @@ class FoodService {
 
     return response.statusCode == 200
         ? (responseJson['meals'] as List).map((p) => Food.fromJson(p)).toList()
-        : throw Exception('Failed to load photos');
+        : throw Exception('Failed to load food');
   }
 
-  Future<List> getFoodById(String foodId) async {
+  getFoodById(String foodId) async {
     String url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=$foodId";
 
     http.Response response = await http.get(url);
     var responseJson = json.decode(response.body);
-
-    return response.statusCode == 200
+    var resData = response.statusCode == 200
         ? (responseJson['meals'] as List)
             .map((p) => FoodDetail.fromJson(p))
             .toList()
-        : throw Exception('Failed to load photos');
+        : throw Exception('Failed to load food');
+    return resData;
   }
 }
