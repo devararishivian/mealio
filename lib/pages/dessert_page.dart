@@ -27,6 +27,7 @@ class _DessertPageState extends State<DessertPage> {
   Future _getFoodByCategory() async {
     var foodService = FoodService();
     var response = await foodService.getFoodByCategory(widget.foodCategory);
+    if (!mounted) return;
     setState(() {
       foodList = response;
     });
