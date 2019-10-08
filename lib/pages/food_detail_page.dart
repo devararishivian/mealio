@@ -20,11 +20,13 @@ class FoodDetailPage extends StatefulWidget {
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
   List<FoodDetail> foodDetail;
+  bool isFavorite;
 
   @override
   void initState() {
     super.initState();
     getFoodById(widget.foodId);
+    _isFavorite();
   }
 
   getFoodById(String foodId) async {
@@ -42,17 +44,38 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
     }
   }
 
+  _isFavorite() {
+    setState(() {
+      isFavorite = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text(
-            widget.foodName,
+        title: Text(
+          widget.foodName,
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context, false),
+        ),
+        actions: <Widget>[
+          IconButton(
+            tooltip: 'Favorite',
+            icon: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+            ),
+            onPressed: () {
+              setState(() {
+                isFavorite = isFavorite ? false : true;
+              });
+              print('$isFavorite');
+            },
           ),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context, false),
-          )),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

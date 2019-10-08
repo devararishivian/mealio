@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mealio/constant.dart';
+import 'dessert_page.dart';
+import 'seafood_page.dart';
 
 class FavoritePage extends StatefulWidget {
   @override
@@ -38,8 +40,8 @@ class _FavoritePageState extends State<FavoritePage> {
         ),
         body: TabBarView(
           children: <Widget>[
-            Text(kDessert),
-            Text(kSeafood),
+            DessertPage(foodCategory: kDessert),
+            SeafoodPage(foodCategory: kSeafood),
           ],
         ),
       ),
