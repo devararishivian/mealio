@@ -39,6 +39,13 @@ class DBHelper {
     print("DB Created");
   }
 
+  Future<bool> isFavorite(String foodId) async {
+    var dbClient = await db;
+    var res = await dbClient
+        .rawQuery("SELECT * FROM favorite WHERE foodId = '$foodId'");
+    return res.isNotEmpty ? true : false;
+  }
+
   Future<int> saveFavorite(Favorite favorite) async {
     var dbClient = await db;
 
@@ -79,10 +86,10 @@ class DBHelper {
     return res > 0 ? true : false;
   }
 
-  Future<int> deleteFavorite(Favorite favorite) async {
+  Future<int> deleteFavorite(String foodId) async {
     var dbClient = await db;
     int res = await dbClient
-        .rawDelete("DELETE FROM favorite WHERE foodId = ?", [favorite.id]);
+        .rawDelete("DELETE FROM favorite WHERE foodId = ?", [foodId]);
     return res;
   }
 }

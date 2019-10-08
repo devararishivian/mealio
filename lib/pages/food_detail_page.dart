@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mealio/models/favorite_model.dart';
 import 'package:mealio/models/food_model.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:mealio/helpers/db_helper.dart';
 
 class FoodDetailPage extends StatefulWidget {
   FoodDetailPage({
@@ -44,10 +46,29 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
     }
   }
 
-  _isFavorite() {
+  _isFavorite() async {
+    var db = DBHelper();
+    var res = await db.isFavorite(widget.foodId);
     setState(() {
-      isFavorite = true;
+      isFavorite = res ? true : false;
     });
+  }
+
+  Future saveFavorite() async {
+    var db = DBHelper();
+    var favorite = Favorite(
+      widget.foodId,
+      widget.foodName,
+      widget.foodPicture,
+      foodDetail[0].foodCategory,
+    );
+    await db.saveFavorite(favorite);
+    print("saved");
+  }
+
+  deleteFavorite(foodId) {
+    var db = DBHelper();
+    db.deleteFavorite(foodId);
   }
 
   @override
@@ -69,9 +90,14 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             ),
             onPressed: () {
               setState(() {
-                isFavorite = isFavorite ? false : true;
+                if (isFavorite) {
+                  deleteFavorite(widget.foodId);
+                  isFavorite = false;
+                } else {
+                  saveFavorite();
+                  isFavorite = true;
+                }
               });
-              print('$isFavorite');
             },
           ),
         ],
