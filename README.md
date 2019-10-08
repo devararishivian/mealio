@@ -12,6 +12,10 @@ Mealio is a meal catalogue app built on top of Flutter. <br>
 <li>TabView</li>
 <li>showSearch</li>
 <li>FloatingActionButton</li>
+<li>BottomNavigationBar</li>
+<li>Sqflite</li>
+<li>Path Provider</li>
+<li>CRUD</li>
 </ul>
 
 <!-- ## Preview App

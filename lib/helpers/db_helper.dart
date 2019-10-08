@@ -78,14 +78,6 @@ class DBHelper {
     return favoriteData;
   }
 
-  Future<bool> updateFavorite(Favorite favorite) async {
-    var dbClient = await db;
-
-    int res = await dbClient.update("favorite", favorite.toMap(),
-        where: "foodId=?", whereArgs: <String>[favorite.foodId]);
-    return res > 0 ? true : false;
-  }
-
   Future<int> deleteFavorite(String foodId) async {
     var dbClient = await db;
     int res = await dbClient
