@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mealio/models/food_model.dart';
+import 'package:mealio/services/food_service.dart';
 import 'food_detail_page.dart';
 import 'food_search_delegate.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class DessertPage extends StatefulWidget {
   DessertPage({
@@ -22,7 +21,15 @@ class _DessertPageState extends State<DessertPage> {
   @override
   void initState() {
     super.initState();
-    getFoodByCategory(widget.foodCategory);
+    _getFoodByCategory();
+  }
+
+  Future _getFoodByCategory() async {
+    var foodService = FoodService();
+    var response = await foodService.getFoodByCategory(widget.foodCategory);
+    setState(() {
+      foodList = response;
+    });
   }
 
   @override
@@ -119,22 +126,6 @@ class _DessertPageState extends State<DessertPage> {
           ),
         ),
       );
-    }
-  }
-
-  getFoodByCategory(String foodCategory) async {
-    String url =
-        "https://www.themealdb.com/api/json/v1/1/filter.php?c=$foodCategory";
-    http.Response response = await http.get(url);
-    var responseJson = json.decode(response.body);
-    if (response.statusCode == 200) {
-      setState(() {
-        foodList = (responseJson['meals'] as List)
-            .map((p) => Food.fromJson(p))
-            .toList();
-      });
-    } else {
-      throw Exception('Failed to load photos');
     }
   }
 }

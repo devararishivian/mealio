@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class FoodService {
-  Future<List> getFoodByCategory(String foodCategory) async {
+  getFoodByCategory(String foodCategory) async {
     String url =
         "https://www.themealdb.com/api/json/v1/1/filter.php?c=$foodCategory";
 
