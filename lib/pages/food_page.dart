@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mealio/pages/dessert_page.dart';
 import 'package:mealio/pages/seafood_page.dart';
+import 'package:mealio/pages/favorite_page.dart';
 import 'package:mealio/constant.dart';
 
 class FoodPage extends StatelessWidget {
@@ -24,7 +25,7 @@ class _FoodScreenState extends State<FoodScreen> {
   static List<Widget> _widgetOptions = <Widget>[
     DessertPage(foodCategory: kDessert),
     SeafoodPage(foodCategory: kSeafood),
-    Text(''),
+    FavoritePage(),
   ];
 
   void _onItemTapped(int index) {
