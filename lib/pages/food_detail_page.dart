@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mealio/models/favorite_model.dart';
 import 'package:mealio/models/food_model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:mealio/helpers/db_helper.dart';
 import 'package:mealio/services/food_service.dart';
 
