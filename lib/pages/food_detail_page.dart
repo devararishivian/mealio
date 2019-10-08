@@ -23,7 +23,7 @@ class FoodDetailPage extends StatefulWidget {
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
   List<FoodDetail> foodDetail;
-  bool isFavorite;
+  bool isFavorite = false;
 
   @override
   void initState() {
