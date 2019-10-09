@@ -33,6 +33,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
   Future _getFoodById() async {
     var foodService = FoodService();
     var response = await foodService.getFoodById(widget.foodId);
+    if (!mounted) return;
     setState(() {
       foodDetail = response;
     });
