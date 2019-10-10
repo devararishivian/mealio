@@ -26,8 +26,11 @@ void main() {
 
     test('Food Page AppBar Test', () async {
       await driver.waitFor(foodScreen);
+      print('Food Screen');
       await driver.waitFor(appBar);
+      print('Food Screen App Bar');
       expect(await driver.getText(appBarTitle), 'Mealio');
+      print('App Bar Title Mealio');
     });
 
     test('Bottom Navbar Item Test', () async {
@@ -35,6 +38,7 @@ void main() {
       print('Bottom Navbar Food Page found!');
 
       await driver.tap(bottomNavbarFoodPageSeafoodFinder);
+      print('Clicked Seafood Bottom Navbar');
       await driver.waitFor(scaffoldSeafoodPage);
       print('Seafood Page Scaffold');
       await driver.waitFor(fabSeafoodPage);
@@ -55,15 +59,39 @@ void main() {
       expect(await driver.getText(cardTextDessertPage0), TypeMatcher<String>());
       await driver.waitFor(cardImageDessertPage0);
       print('Done Dessert section');
+
+      await driver.tap(bottomNavbarFoodPageFavoriteFinder);
+      await driver.waitFor(favoriteTabbar);
+      print('Favorite Page Tabbar');
+      await driver.waitFor(favoriteDessertTab);
+      print('Favorite Page Dessert Tab');
+      await driver.waitFor(favoriteSeafoodTab);
+      print('Favorite Page Seafood Tab');
+      await driver.waitFor(favoriteFutureBuilder);
+      print('Favorite Page');
+      print('Done Favorite section');
     });
 
     test('Food Detail Test', () async {
       await driver.tap(bottomNavbarFoodPageSeafoodFinder);
-      print('Seafood Page');
+      print('Food Page');
       await driver.waitFor(scaffoldSeafoodPage);
+      print('Food Scaffold');
       await driver.waitFor(gridViewSeafoodPage);
+      print('Food GridView');
       await driver.waitFor(cardSeafoodPage0);
+      print('Food Card');
       await driver.tap(cardSeafoodPage0);
+      print('CARD INDEX 0 TAPPED');
+      expect(await driver.getText(appBarDetailTitle), TypeMatcher<String>());
+      await driver.waitFor(imageFoodDetail);
+      print('Food Detail Image');
+      await driver.waitFor(textFoodDetail);
+      print('Food Detail Text');
+      await driver.tap(detailBackButton);
+      print('Back to previous page');
+      await driver.waitFor(gridViewSeafoodPage);
+      print('previous page');
     });
   });
 }

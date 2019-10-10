@@ -5,6 +5,8 @@ import 'package:mealio/models/favorite_model.dart';
 import 'food_detail_page.dart';
 
 class FavoritePage extends StatefulWidget {
+  FavoritePage({Key key}) : super(key: key);
+
   @override
   _FavoritePageState createState() => _FavoritePageState();
 }
@@ -21,17 +23,20 @@ class _FavoritePageState extends State<FavoritePage> {
             preferredSize: Size(0, 0),
             child: Container(
               child: TabBar(
+                key: Key('FAVORITE_PAGE_TABBAR'),
                 tabs: [
                   Container(
                     height: 50.0,
                     child: Tab(
                       text: kDessert,
+                      key: Key('FAVORITE_PAGE_DESSERT_TAB'),
                     ),
                   ),
                   Container(
                     height: 50.0,
                     child: Tab(
                       text: kSeafood,
+                      key: Key('FAVORITE_PAGE_SEAFOOD_TAB'),
                     ),
                   ),
                 ],
@@ -40,6 +45,7 @@ class _FavoritePageState extends State<FavoritePage> {
           ),
         ),
         body: TabBarView(
+          key: Key('FAVORITE_PAGE_TABBAR_VIEW'),
           children: <Widget>[
             FavoriteView(foodCategory: kDessert),
             FavoriteView(foodCategory: kSeafood),
@@ -66,6 +72,7 @@ class _FavoriteViewState extends State<FavoriteView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
+        key: Key('FAVORITE_FUTURE_BUILDER'),
         future: db.getFavorite(widget.foodCategory),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);

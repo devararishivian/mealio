@@ -9,7 +9,8 @@ class FoodDetailPage extends StatefulWidget {
     @required this.foodId,
     @required this.foodName,
     @required this.foodPicture,
-  });
+    Key key,
+  }) : super(key: key);
 
   final String foodId;
   final String foodName;
@@ -70,10 +71,12 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
       appBar: AppBar(
         title: Text(
           widget.foodName,
+          key: Key('APP_BAR_FOOD_DETAIL'),
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context, false),
+          key: Key('DETAIL_BACK_BUTTON'),
         ),
         actions: <Widget>[
           IconButton(
@@ -81,6 +84,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
             ),
+            key: Key('FAVORITE_BUTTON'),
             onPressed: () {
               setState(() {
                 if (isFavorite) {
@@ -116,6 +120,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                         child: FadeInImage.assetNetwork(
                           placeholder: 'assets/images/et.png',
                           image: widget.foodPicture,
+                          key: Key('IMAGE_FOOD_DETAIL'),
                         ),
                       ),
                     ),
@@ -147,6 +152,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
           padding: EdgeInsets.all(16.0),
           child: Text(
             foodDetail[0].foodDetail,
+            key: Key('FOOD_DETAIL_TEXT'),
           ),
         ),
       );
