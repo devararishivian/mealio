@@ -46,7 +46,9 @@ class _SeafoodPageState extends State<SeafoodPage> {
     } else {
       return SafeArea(
         child: Scaffold(
+          key: Key('SEAFOOD_SCAFFOLD'),
           floatingActionButton: FloatingActionButton(
+            key: Key('FAB_SEAFOOD_PAGE'),
             onPressed: () {
               showSearch(
                 context: context,
@@ -60,6 +62,7 @@ class _SeafoodPageState extends State<SeafoodPage> {
             tooltip: 'Search',
           ),
           body: GridView.builder(
+            key: Key('GRID_VIEW_SEAFOOD_PAGE'),
             itemCount: foodList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -68,6 +71,7 @@ class _SeafoodPageState extends State<SeafoodPage> {
             ),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
+                key: Key('CARD_SEAFOOD_PAGE_$index'),
                 child: Card(
                   margin: EdgeInsets.all(15.0),
                   shape: RoundedRectangleBorder(
@@ -88,6 +92,7 @@ class _SeafoodPageState extends State<SeafoodPage> {
                             child: Image.network(
                               foodList[index].foodPicture,
                               fit: BoxFit.cover,
+                              key: Key('CARD_IMAGE_SEAFOOD_PAGE_$index'),
                             ),
                           ),
                         ),
@@ -101,6 +106,7 @@ class _SeafoodPageState extends State<SeafoodPage> {
                               foodList[index].foodName,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
+                              key: Key('CARD_TEXT_SEAFOOD_PAGE_$index'),
                             ),
                           ),
                         ),

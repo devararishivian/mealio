@@ -46,6 +46,7 @@ class _DessertPageState extends State<DessertPage> {
     } else {
       return SafeArea(
         child: Scaffold(
+          key: Key('DESSERT_SCAFFOLD'),
           floatingActionButton: FloatingActionButton(
             key: Key('FAB_DESSERT_PAGE'),
             onPressed: () {
@@ -91,6 +92,7 @@ class _DessertPageState extends State<DessertPage> {
                             child: Image.network(
                               foodList[index].foodPicture,
                               fit: BoxFit.cover,
+                              key: Key('CARD_IMAGE_DESSERT_PAGE_$index'),
                             ),
                           ),
                         ),
