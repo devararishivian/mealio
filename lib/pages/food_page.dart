@@ -6,15 +6,21 @@ import 'package:mealio/pages/favorite_page.dart';
 import 'package:mealio/constant.dart';
 
 class FoodPage extends StatelessWidget {
+  FoodPage({Key key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FoodScreen(),
+      body: FoodScreen(
+        key: Key('FOOD_SCREEN'),
+      ),
     );
   }
 }
 
 class FoodScreen extends StatefulWidget {
+  FoodScreen({Key key}) : super(key: key);
+
   @override
   _FoodScreenState createState() => _FoodScreenState();
 }
@@ -38,21 +44,35 @@ class _FoodScreenState extends State<FoodScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(kMainTitle),
+        key: Key('APP_BAR'),
+        title: Text(
+          kMainTitle,
+          key: Key('APP_BAR_TITLE'),
+        ),
       ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        key: Key('BOTTOM_NAVBAR_FOODPAGE'),
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.iceCream),
+            icon: Icon(
+              FontAwesomeIcons.iceCream,
+              key: Key('BOTTOM_NAVBAR_FOODPAGE_DESSERT'),
+            ),
             title: Text('Dessert'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.fish),
+            icon: Icon(
+              FontAwesomeIcons.fish,
+              key: Key('BOTTOM_NAVBAR_FOODPAGE_SEAFOOD'),
+            ),
             title: Text('Seafood'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.solidHeart),
+            icon: Icon(
+              FontAwesomeIcons.solidHeart,
+              key: Key('BOTTOM_NAVBAR_FOODPAGE_FAVORITE'),
+            ),
             title: Text('Favorite'),
           ),
         ],

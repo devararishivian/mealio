@@ -5,9 +5,7 @@ import 'food_detail_page.dart';
 import 'food_search_delegate.dart';
 
 class DessertPage extends StatefulWidget {
-  DessertPage({
-    @required this.foodCategory,
-  });
+  DessertPage({@required this.foodCategory, Key key}) : super(key: key);
 
   final String foodCategory;
 
@@ -49,6 +47,7 @@ class _DessertPageState extends State<DessertPage> {
       return SafeArea(
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
+            key: Key('FAB_DESSERT_PAGE'),
             onPressed: () {
               showSearch(
                 context: context,
@@ -62,6 +61,7 @@ class _DessertPageState extends State<DessertPage> {
             tooltip: 'Search',
           ),
           body: GridView.builder(
+            key: Key('GRID_VIEW_DESSERT_PAGE'),
             itemCount: foodList.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -70,6 +70,7 @@ class _DessertPageState extends State<DessertPage> {
             ),
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
+                key: Key('CARD_DESSERT_PAGE_$index'),
                 child: Card(
                   margin: EdgeInsets.all(15.0),
                   shape: RoundedRectangleBorder(
@@ -103,6 +104,7 @@ class _DessertPageState extends State<DessertPage> {
                               foodList[index].foodName,
                               textAlign: TextAlign.center,
                               overflow: TextOverflow.ellipsis,
+                              key: Key('CARD_TEXT_DESSERT_PAGE_$index'),
                             ),
                           ),
                         ),

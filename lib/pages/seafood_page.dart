@@ -5,9 +5,7 @@ import 'food_detail_page.dart';
 import 'food_search_delegate.dart';
 
 class SeafoodPage extends StatefulWidget {
-  SeafoodPage({
-    @required this.foodCategory,
-  });
+  SeafoodPage({@required this.foodCategory, Key key}) : super(key: key);
 
   final String foodCategory;
 
