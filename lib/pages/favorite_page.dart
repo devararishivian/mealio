@@ -17,6 +17,7 @@ class _FavoritePageState extends State<FavoritePage> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        key: Key('FAVORITE_SCAFFOLD'),
         appBar: AppBar(
           backgroundColor: Colors.white10,
           bottom: PreferredSize(
@@ -102,6 +103,7 @@ class _FavoriteGridViewState extends State<FavoriteGridView> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      key: Key('FAVORITE_GRID_VIEW'),
       itemCount: widget.favoriteData.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -110,6 +112,7 @@ class _FavoriteGridViewState extends State<FavoriteGridView> {
       ),
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
+          key: Key('CARD_FAVORITE_$index'),
           child: Card(
             margin: EdgeInsets.all(15.0),
             shape: RoundedRectangleBorder(
@@ -143,6 +146,7 @@ class _FavoriteGridViewState extends State<FavoriteGridView> {
                         widget.favoriteData[index].foodName,
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
+                        key: Key('FAVORITE_CARD_TEXT_$index'),
                       ),
                     ),
                   ),

@@ -116,5 +116,52 @@ void main() {
       await driver.waitFor(gridViewSeafoodPage);
       print('Seafood Page');
     });
+
+    Future<String> getDessertFoodTextIndex0() async {
+      return "Apple & Blackberry Crumble";
+    }
+
+    Future<String> getSeafoodFoodTextIndex0() async {
+      return "Baked salmon with fennel & tomatoes";
+    }
+
+    test('Favorite Page Test', () async {
+      print(
+          'We have favorited some dessert and seafood food before, so we check if there is that favorited food exists in favorite view');
+      Future<String> dessertFoodTextIndex0 = getDessertFoodTextIndex0();
+      Future<String> seafoodFoodTextIndex0 = getSeafoodFoodTextIndex0();
+      await driver.tap(bottomNavbarFoodPageFavoriteFinder);
+      print('Favorite Page');
+
+      await driver.waitFor(scaffoldFavorite);
+      await driver.waitFor(favoriteTabbar);
+      await driver.waitFor(favoriteTabbarView);
+
+      await driver.tap(favoriteDessertTab);
+      await driver.waitFor(favoriteFutureBuilder);
+      await driver.waitFor(favoriteGridView);
+      expect(
+          await driver.getText(favoriteCardText0), await dessertFoodTextIndex0);
+      print('match');
+      await driver.tap(favoriteCard0);
+      print('Card tapped');
+      await driver.tap(favoriteButton);
+      print('removed from favorite');
+      await driver.tap(detailBackButton);
+      print('back');
+
+      await driver.tap(favoriteSeafoodTab);
+      await driver.waitFor(favoriteFutureBuilder);
+      await driver.waitFor(favoriteGridView);
+      expect(
+          await driver.getText(favoriteCardText0), await seafoodFoodTextIndex0);
+      print('match');
+      await driver.tap(favoriteCard0);
+      print('Card tapped');
+      await driver.tap(favoriteButton);
+      print('removed from favorite');
+      await driver.tap(detailBackButton);
+      print('back');
+    });
   });
 }

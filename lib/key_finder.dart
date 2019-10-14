@@ -45,6 +45,7 @@ SerializableFinder scaffoldFoodDetail = find.byValueKey('FOOD_DETAIL_SCAFFOLD');
 SerializableFinder imageFoodDetail = find.byValueKey('IMAGE_FOOD_DETAIL');
 SerializableFinder textFoodDetail = find.byValueKey('FOOD_DETAIL_TEXT');
 
+SerializableFinder scaffoldFavorite = find.byValueKey('FAVORITE_SCAFFOLD');
 SerializableFinder favoriteTabbar = find.byValueKey('FAVORITE_PAGE_TABBAR');
 SerializableFinder favoriteDessertTab =
     find.byValueKey('FAVORITE_PAGE_DESSERT_TAB');
@@ -55,3 +56,7 @@ SerializableFinder favoriteTabbarView =
     find.byValueKey('FAVORITE_PAGE_TABBAR_VIEW');
 SerializableFinder favoriteFutureBuilder =
     find.byValueKey('FAVORITE_FUTURE_BUILDER');
+
+SerializableFinder favoriteGridView = find.byValueKey('FAVORITE_GRID_VIEW');
+SerializableFinder favoriteCard0 = find.byValueKey('CARD_FAVORITE_0');
+SerializableFinder favoriteCardText0 = find.byValueKey('FAVORITE_CARD_TEXT_0');
