@@ -68,6 +68,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Key('FOOD_DETAIL_SCAFFOLD'),
       appBar: AppBar(
         title: Text(
           widget.foodName,

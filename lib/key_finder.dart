@@ -41,6 +41,7 @@ SerializableFinder cardTextDessertPage0 =
 SerializableFinder cardTextSeafoodPage0 =
     find.byValueKey('CARD_TEXT_SEAFOOD_PAGE_0');
 
+SerializableFinder scaffoldFoodDetail = find.byValueKey('FOOD_DETAIL_SCAFFOLD');
 SerializableFinder imageFoodDetail = find.byValueKey('IMAGE_FOOD_DETAIL');
 SerializableFinder textFoodDetail = find.byValueKey('FOOD_DETAIL_TEXT');
 
