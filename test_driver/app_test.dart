@@ -163,5 +163,40 @@ void main() {
       await driver.tap(detailBackButton);
       print('back');
     });
+
+    test('Search function test', () async {
+      // --- Dessert ---
+      await driver.tap(bottomNavbarFoodPageDessertFinder);
+      print('Dessert Food Page');
+      await driver.waitFor(fabDessertPage);
+      print('Dessert Page FAB');
+      await driver.tap(fabDessertPage);
+      print('FAB Tapped');
+
+      await driver.waitFor(foodSearchSuggestionsList);
+      print('Search suggestions loaded');
+      await driver.waitFor(foodSearchSuggestionsListTileIndex0);
+      expect(await driver.getText(foodSearchSuggestionsListTileTextIndex0),
+          await getDessertFoodTextIndex0());
+      await driver.tap(foodSearchSuggestionsListTileTextIndex0);
+      print('1st Suggestions tapped');
+      await driver.waitFor(scaffoldFoodDetail);
+      expect(await driver.getText(appBarDetailTitle),
+          await getDessertFoodTextIndex0());
+      print('match');
+      await driver.tap(detailBackButton);
+      print('back');
+
+      print('DONE');
+
+      // await driver.waitFor(fabDessertPage);
+      // print('Dessert Page FAB');
+      // await driver.tap(fabDessertPage);
+      // print('FAB Tapped again');
+
+      // await driver.enterText('ap');
+      // await driver.waitFor(foodSearchResultTextShortQuery);
+      // print('search query is too short');
+    });
   });
 }

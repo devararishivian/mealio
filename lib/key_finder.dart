@@ -60,3 +60,24 @@ SerializableFinder favoriteFutureBuilder =
 SerializableFinder favoriteGridView = find.byValueKey('FAVORITE_GRID_VIEW');
 SerializableFinder favoriteCard0 = find.byValueKey('CARD_FAVORITE_0');
 SerializableFinder favoriteCardText0 = find.byValueKey('FAVORITE_CARD_TEXT_0');
+
+SerializableFinder foodSearchBackButton =
+    find.byValueKey('FOOD_SEARCH_BACK_BUTTON');
+SerializableFinder foodSearchClearQueryButton =
+    find.byValueKey('FOOD_SEARCH_CLEAR_QUERY');
+SerializableFinder foodSearchResultTextShortQuery =
+    find.byValueKey('FOOD_SEARCH_RESULT_TEXT_SHORT_QUERY');
+SerializableFinder foodSearchResultTextNoResult =
+    find.byValueKey('FOOD_SEARCH_RESULT_TEXT_NO_RESULT');
+SerializableFinder foodSearchResultList =
+    find.byValueKey('FOOD_SEARCH_RESULT_LIST');
+SerializableFinder foodSearchResultListTileIndex0 =
+    find.byValueKey('FOOD_SEARCH_RESULT_LIST_TILE_INDEX_0');
+SerializableFinder foodSearchResultListTileTextIndex0 =
+    find.byValueKey('FOOD_SEARCH_RESULT_LIST_TILE_TEXT_INDEX_0');
+SerializableFinder foodSearchSuggestionsList =
+    find.byValueKey('FOOD_SEARCH_SUGGESTIONS_LIST');
+SerializableFinder foodSearchSuggestionsListTileIndex0 =
+    find.byValueKey('FOOD_SEARCH_SUGGESTIONS_LIST_TILE_INDEX_0');
+SerializableFinder foodSearchSuggestionsListTileTextIndex0 =
+    find.byValueKey('FOOD_SEARCH_SUGGESTIONS_LIST_TILE_TEXT_INDEX_0');

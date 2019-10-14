@@ -17,6 +17,7 @@ class FoodSearchDelegate extends SearchDelegate {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
+      key: Key('FOOD_SEARCH_BACK_BUTTON'),
       tooltip: 'Back',
       icon: AnimatedIcon(
         icon: AnimatedIcons.menu_arrow,
@@ -33,6 +34,7 @@ class FoodSearchDelegate extends SearchDelegate {
     return <Widget>[
       query.isNotEmpty
           ? IconButton(
+              key: Key('FOOD_SEARCH_CLEAR_QUERY'),
               tooltip: 'Clear',
               icon: Icon(Icons.clear),
               onPressed: () {
@@ -53,6 +55,7 @@ class FoodSearchDelegate extends SearchDelegate {
           Center(
             child: Text(
               "Search term must be longer than two letters.",
+              key: Key('FOOD_SEARCH_RESULT_TEXT_SHORT_QUERY'),
             ),
           )
         ],
@@ -71,6 +74,7 @@ class FoodSearchDelegate extends SearchDelegate {
           Center(
             child: Text(
               "No Results Found.",
+              key: Key('FOOD_SEARCH_RESULT_TEXT_NO_RESULT'),
             ),
           )
         ],
@@ -78,12 +82,17 @@ class FoodSearchDelegate extends SearchDelegate {
     }
 
     return ListView.builder(
+      key: Key('FOOD_SEARCH_RESULT_LIST'),
       itemCount: results.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
+          key: Key('FOOD_SEARCH_RESULT_LIST_TILE_INDEX_$index'),
           contentPadding: EdgeInsets.all(20),
           leading: Image.network(results[index].foodPicture),
-          title: Text(results[index].foodName),
+          title: Text(
+            results[index].foodName,
+            key: Key('FOOD_SEARCH_RESULT_LIST_TILE_TEXT_INDEX_$index'),
+          ),
           onTap: () {
             Navigator.pushReplacement(
               context,
@@ -111,12 +120,17 @@ class FoodSearchDelegate extends SearchDelegate {
             .toList();
 
     return ListView.builder(
+      key: Key('FOOD_SEARCH_SUGGESTIONS_LIST'),
       itemCount: suggestions.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
+          key: Key('FOOD_SEARCH_SUGGESTIONS_LIST_TILE_INDEX_$index'),
           contentPadding: EdgeInsets.all(20),
           leading: Image.network(suggestions[index].foodPicture),
-          title: Text(suggestions[index].foodName),
+          title: Text(
+            suggestions[index].foodName,
+            key: Key('FOOD_SEARCH_SUGGESTIONS_LIST_TILE_TEXT_INDEX_$index'),
+          ),
           onTap: () {
             Navigator.pushReplacement(
               context,
