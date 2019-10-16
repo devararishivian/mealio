@@ -4,6 +4,7 @@ import 'package:mealio/pages/dessert_page.dart';
 import 'package:mealio/pages/seafood_page.dart';
 import 'package:mealio/pages/favorite_page.dart';
 import 'package:mealio/constant.dart';
+import 'package:mealio/config.dart';
 
 class FoodPage extends StatelessWidget {
   FoodPage({Key key}) : super(key: key);
@@ -46,7 +47,8 @@ class _FoodScreenState extends State<FoodScreen> {
       appBar: AppBar(
         key: Key('APP_BAR'),
         title: Text(
-          kMainTitle,
+          // kMainTitle,
+          '${Config.appString}',
           key: Key('APP_BAR_TITLE'),
         ),
       ),
